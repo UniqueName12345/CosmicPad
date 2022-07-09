@@ -10,26 +10,23 @@ def saveas_file(arg):
     global file_name
     file_name = filedialog.asksaveasfilename(defaultextension=".txt")
     filnm = file_name
-    file = open(file_name, "w")
-    file.write(text_editor.get(1.0, END))
-    file.close()
+    with open(file_name, "w") as file:
+        file.write(text_editor.get(1.0, END))
     print(file_name)
 
 def open_file(arg):
     file_name = filedialog.askopenfilename(defaultextension=".txt")
-    file = open(file_name, "r")
-    text_editor.delete(1.0, END)
-    text_editor.insert(1.0, file.read())
-    file.close()
+    with open(file_name, "r") as file:
+        text_editor.delete(1.0, END)
+        text_editor.insert(1.0, file.read())
 
 def clear_text(arg):
     text_editor.delete(1.0, END)
 
 # save to file "file_name"
 def save_file(arg):
-    file = open(file_name, "w")
-    file.write(text_editor.get(1.0, END))
-    file.close()
+    with open(file_name, "w") as file:
+        file.write(text_editor.get(1.0, END))
 
 save_button = Button(root, text="Save", command=lambda: save_file(text_editor))
 saveas_button = Button(root, text="Save As", command=lambda: saveas_file(text_editor))
