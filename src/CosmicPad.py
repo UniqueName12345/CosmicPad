@@ -3,7 +3,7 @@ from tkinter import filedialog
 
 root = Tk()
 root.configure(background='#0D1117')
-root.title("AuraPad")
+root.title("CosmicPad")
 root.geometry("800x600")
 
 def saveas_file(arg):

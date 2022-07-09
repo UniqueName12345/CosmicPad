@@ -4,7 +4,7 @@
 block_cipher = None
 
 
-a = Analysis(['..\\src\\AuraPad.py'],
+a = Analysis(['..\\src\\CosmicPad.py'],
              pathex=[],
              binaries=[],
              datas=[],
@@ -25,7 +25,7 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,  
           [],
-          name='AuraPad',
+          name='CosmicPad',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
