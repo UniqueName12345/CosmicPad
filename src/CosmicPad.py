@@ -8,7 +8,7 @@ root.geometry("800x600")
 
 def saveas_file(arg):
     global file_name
-    file_name = filedialog.asksaveasfilename(defaultextension=".txt")
+    file_name = filedialog.asksaveasfilename(defaultextension=".md")
     filnm = file_name
     file = open(file_name, "w")
     file.write(text_editor.get(1.0, END))
@@ -16,7 +16,7 @@ def saveas_file(arg):
     print(file_name)
 
 def open_file(arg):
-    file_name = filedialog.askopenfilename(defaultextension=".txt")
+    file_name = filedialog.askopenfilename(defaultextension=".md")
     file = open(file_name, "r")
     text_editor.delete(1.0, END)
     text_editor.insert(1.0, file.read())
@@ -58,19 +58,27 @@ root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
 
 # the following code is for syntax highlighting
-htmlSyntax = ["<html>", "<style>", "<center>", "<h1>", "<h2>", "<h3>", "<h4>", "<p>"]
+mdSyntax = ["<html>", "<bold>", "<italics>", "<h1>", "<h2>", "<h3>", "<h4>", "<newline>"]
 
-# go through the text in text_editor and highlight the words if they are in htmlSyntax
-def highlight_html(event):
-    text = text_editor.get(1.0, END)
-    for word in htmlSyntax:
-        if word in text:
-            text_editor.tag_add("html", "1.0", END)
-            text_editor.tag_config("html", foreground="#FF0000")
+def translate_html_to_markdown(text):
+    text = text.replace("<html>", "")
+    text = text.replace("<bold>", "**")
+    text = text.replace("<italics>", "*")
+    text = text.replace("<h1>", "#")
+    text = text.replace("<h2>", "##")
+    text = text.replace("<h3>", "###")
+    text = text.replace("<h4>", "####")
+    text = text.replace("<p>", "\n")
+
+# go through the text in text_editor and highlight the syntax
+def highlight_syntax(text):
+    for i in mdSyntax:
+        text = text.replace(i, "")
+    return text
 
 # while loop
 while True:
-    highlight_html(text_editor)
+    highlight_syntax(text_editor.get(1.0, END))
     root.update()
 
-root.mainloop()
+# root.mainloop() code is unnecessary since the while loop is infinite
